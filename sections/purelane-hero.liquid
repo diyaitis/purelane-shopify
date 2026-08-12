@@ -6,6 +6,11 @@
 {%- liquid
   assign stage_blocks = section.blocks | where: 'type', 'stage'
   assign badge_blocks = section.blocks | where: 'type', 'badge'
+  assign heading_html = section.settings.heading
+  if section.settings.highlight_word != blank
+    assign wrapped = '<span class="pl-lime">' | append: section.settings.highlight_word | append: '</span>'
+    assign heading_html = heading_html | replace: section.settings.highlight_word, wrapped
+  endif
 -%}
 
 <section class="pl-scope pl-hero" id="{{ section.settings.anchor_id | default: 'top' }}" data-section-id="{{ section.id }}" data-section-type="purelane-hero">
@@ -23,7 +28,7 @@
     {%- endif -%}
 
     <div class="pl-hero-copy">
-      <h1 class="pl-d1 pl-rv">{{ section.settings.heading }}</h1>
+      <h1 class="pl-d1 pl-rv">{{ heading_html }}</h1>
       <div class="pl-rule pl-rv pl-rv-d1">
         <i></i>
         {% render 'purelane-icon', icon: 'leaf' %}
@@ -114,6 +119,13 @@
       "id": "heading",
       "label": "Heading",
       "default": "<p>Clean<br>That<br>Lasts</p>"
+    },
+    {
+      "type": "text",
+      "id": "highlight_word",
+      "label": "Accent-coloured word in heading",
+      "info": "Matched literally inside the heading above and wrapped in the accent colour, e.g. \"Lasts\".",
+      "default": "Lasts"
     },
     {
       "type": "textarea",
