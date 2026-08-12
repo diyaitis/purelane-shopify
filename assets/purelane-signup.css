@@ -1,0 +1,11 @@
+.pl-signup-sec{background:linear-gradient(178deg,#e9f8ec 0%,#cdedd6 30%,#addcbe 62%,#8ecdaa 100%)}
+.pl-signup{padding:clamp(28px,4vw,46px);text-align:center}
+.pl-signup .pl-d2{margin-bottom:12px}
+.pl-signup form{display:flex;gap:9px;max-width:430px;margin:22px auto 0;flex-wrap:wrap;justify-content:center}
+.pl-signup input[type="email"]{flex:1;min-width:180px;height:46px;padding:0 18px;border-radius:999px;font-size:14px;font-family:inherit;color:var(--pl-surface);
+  background:rgba(255,255,255,.6);border:1px solid rgba(75,58,143,.24)}
+.pl-signup input::placeholder{color:var(--pl-paper-3)}
+.pl-signup input:focus{outline:none;border-color:var(--pl-accent);background:#fff}
+.pl-signup .pl-form-message{margin-top:12px;font-size:13px}
+.pl-signup .pl-form-message--success{color:#2e6b3e}
+.pl-signup .pl-form-message--error{color:#a4331f}
