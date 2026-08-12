@@ -47,7 +47,16 @@ product photo works; the card only needs `featured_media` to be present.
 
 Then: **Products → Collections → Create collection** (e.g. "Bestsellers"),
 add all 8 products, save. In the theme editor, open the **Purelane: Shop
-grid** section and set its Collection setting to that collection.
+grid** and **Purelane: Full range** sections and set their Collection
+setting to that collection.
+
+## 4b. Footer "Shop" links (bonus)
+The footer's Shop column reads a navigation menu with handle `footer`
+(Dawn's own default menu handle). Go to **Online Store → Navigation** →
+edit (or create) the menu with handle `footer`, and add links for
+Bestsellers, Kitchen, Laundry, Home, Skin, Starter kits per the prototype.
+If you skip this, the footer just shows an empty Shop column — nothing
+breaks.
 
 ## 5. Reviews (optional)
 The product card reads the standard `reviews.rating` / `reviews.rating_count`

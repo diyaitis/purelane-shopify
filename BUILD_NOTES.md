@@ -1,12 +1,23 @@
 # Build notes — Purelane homepage → Shopify (Dawn)
 
 ## What this is
-Five production Dawn sections reproducing `reference/purelane-homepage.html`
-(the assignment's prototype — recovered from the assignment page, see
-`AI_WORKFLOW.md`): **hero**, **shop/product grid**, **best-selling combos**,
-**bundles**, and **reviews rail**. Wired onto the homepage in
-`templates/index.json` in the prototype's own order: hero → reviews →
-combos → bundles → shop.
+The 5 **required** sections plus every bonus content section from the
+prototype, reproducing `reference/purelane-homepage.html` (the assignment's
+prototype — recovered from the assignment page, see `AI_WORKFLOW.md`) as
+production Dawn sections:
+
+- **Required:** hero, shop/product grid, best-selling combos, bundles, reviews rail
+- **Bonus:** ingredients strip, pillars/how-it-works, proof + stats, full
+  product range strip, why-bundles-beat-single, bundle categories, trust
+  bar, email signup (wired to a real Shopify customer form, not the
+  prototype's `onsubmit="return false"` mockup), sticky mobile CTA, a
+  ticker (via Dawn's own `announcement-bar`, reused rather than
+  duplicated), and footer content restyled onto Dawn's real footer blocks
+
+All wired into `templates/index.json` in the prototype's own page order:
+hero → reviews → ingredients → pillars → proof → combos → bundles → shop
+→ full range → why-bundles → categories → trust bar → signup, plus the
+sticky CTA and ticker as persistent chrome.
 
 ## Architecture decisions
 
@@ -64,23 +75,31 @@ product still renders correctly.
 No metaobjects were needed (see architecture decision above).
 
 ## What was cut, and why
-The prototype also ships a full-viewport animated background ("water
-scenes" that shift gradient per section on scroll, plus a rising-bubbles
-layer), a marquee ticker, custom nav/sticky-CTA, and several bonus content
-sections (ingredients, pillars, proof/stats, full range strip, why-bundles,
-categories, trust bar, signup, footer). None of these are in the assignment's
-5 required sections, none are merchant-editable commerce content, and the
-scene system in particular is a non-trivial scroll-linked JS/SVG layer with
-zero functional value beyond ambience. Given the 2-day window, I prioritized
-the 5 required sections to production quality (real data, edge cases,
-accessibility, LCP) over partial coverage of bonus chrome. Each of the 5
-sections keeps a static per-section background gradient (matching that
-section's designated "scene" stop in the prototype) so the overall visual
-mood carries through without the animation system.
+The prototype's full-viewport animated background ("water scenes" that
+shift gradient per section on scroll, plus a rising-bubbles layer) is not
+reproduced. It's a non-trivial scroll-linked JS/SVG layer with zero
+functional or commerce value beyond ambience, and no bonus point is worth
+the risk it introduces to scroll performance / Core Web Vitals across 14
+sections. Each section instead keeps a static per-section background
+gradient (matching that section's designated "scene" stop in the
+prototype), so the overall visual mood still carries through.
 
-Dawn's own header/footer are left as-is rather than re-skinned to match the
-prototype's nav — same reasoning: not one of the 5 required sections, and
-Dawn's header already handles cart/search/menu/accessibility correctly.
+Dawn's own header nav is left as Dawn's real, tested, accessible
+mega-menu/drawer rather than rebuilt to pixel-match the prototype's custom
+pill nav — reskinning it risked breaking keyboard nav / focus trapping
+Dawn already gets right, for a component with no commerce logic of its own.
+The footer's *content* is reconfigured to match the prototype (see
+"Restyle footer" commit); its visual chrome (glass panels, gradient) is
+not, same reasoning as the nav.
+
+The proof section's product rotator is simplified to auto-advance only
+(no manual dot controls) — it's `aria-hidden="true"` in the prototype
+itself, i.e. explicitly marked decorative-only, so I matched that intent
+instead of adding interactive affordances to a non-essential visual.
+
+Bundle categories / full-range / why-bundles sections use flat CSS
+gradients per their prototype "scene" stop rather than a shared animated
+backdrop, consistent with the scene-system cut above.
 
 ## Verification done
 `shopify theme check` run locally against the full theme: 0 errors in any
