@@ -1,0 +1,114 @@
+{{ 'purelane-shared.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-proof.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'purelane-proof.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign showcase_blocks = section.blocks | where: 'type', 'showcase'
+  assign stat_blocks = section.blocks | where: 'type', 'stat'
+-%}
+
+<section class="pl-scope pl-sec pl-proof-sec" id="{{ section.settings.anchor_id | default: 'proof' }}" data-section-id="{{ section.id }}" data-section-type="purelane-proof">
+  <div class="pl-wrap">
+    <div class="pl-glass pl-sec-pad pl-rv">
+      <div class="pl-proof">
+        <div class="pl-proof-l">
+          {%- if section.settings.kicker != blank -%}<span class="pl-kicker">{{ section.settings.kicker }}</span>{%- endif -%}
+          <h2 class="pl-d2" style="margin-top:12px">{{ section.settings.heading }}</h2>
+          {%- if section.settings.text != blank -%}<p class="pl-body-s" style="max-width:40ch">{{ section.settings.text }}</p>{%- endif -%}
+          {%- if section.settings.link_label != blank -%}
+            <a class="pl-btn pl-btn-primary" href="{{ section.settings.link | default: '#ingredients' }}">
+              {{ section.settings.link_label }}
+              {% render 'purelane-icon', icon: 'arrow' %}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if showcase_blocks.size > 0 -%}
+          <div class="pl-glass-2 pl-rot" aria-hidden="true">
+            <div class="pl-frame">
+              {%- for block in showcase_blocks -%}
+                {%- assign img = block.settings.product.featured_media | default: block.settings.image -%}
+                {%- if img != blank -%}
+                  <img class="{% if forloop.first %}pl-on{% endif %}" src="{{ img | image_url: width: 400 }}" alt="" loading="lazy" width="200" height="200"
+                    data-name="{{ block.settings.name_override | default: block.settings.product.title }}"
+                    data-note="{{ block.settings.note }}">
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            {%- assign first = showcase_blocks.first -%}
+            <div class="pl-cap">
+              <b>{{ first.settings.name_override | default: first.settings.product.title }}</b>
+              <span>{{ first.settings.note }}</span>
+            </div>
+            {%- if showcase_blocks.size > 1 -%}
+              <div class="pl-dots">
+                {%- for block in showcase_blocks -%}<i class="{% if forloop.first %}pl-on{% endif %}"></i>{%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if stat_blocks.size > 0 -%}
+        <div class="pl-glass-2 pl-stats" style="grid-column:1/-1;margin-top:22px">
+          {%- for block in stat_blocks -%}
+            <div class="pl-stat" {{ block.shopify_attributes }}>
+              <div class="pl-ring">{{ block.settings.value }}</div>
+              <h5>{{ block.settings.label }}</h5>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane: Proof",
+  "tag": "section",
+  "class": "pl-section",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Section anchor ID", "default": "proof" },
+    { "type": "text", "id": "kicker", "label": "Eyebrow text", "default": "Why it works" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Tough on grime.<br>Gentle on everything else.</p>" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every formula is built on plant-derived cleansers and essential oils. It behaves exactly like the cleaner you are used to, minus the things you never signed up for." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "See the ingredient list" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "showcase",
+      "name": "Rotator image",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product (for image + name)" },
+        { "type": "image_picker", "id": "image", "label": "Image override", "info": "Used only if no product is selected above." },
+        { "type": "text", "id": "name_override", "label": "Name override" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Foam lifts grease, no scrubbing" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "99.9%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Germ kill" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Tested against germs and bacteria" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane: Proof",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "99.9%", "label": "Germ kill", "text": "Tested against germs and bacteria" } },
+        { "type": "stat", "settings": { "value": "0%", "label": "Sulphates", "text": "No SLS, chlorine or parabens" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "Plant based", "text": "Cleansers derived from plants" } },
+        { "type": "stat", "settings": { "value": "4.8", "label": "Rated", "text": "Across 8,000+ verified reviews" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
