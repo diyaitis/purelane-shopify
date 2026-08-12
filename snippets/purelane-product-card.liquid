@@ -1,0 +1,78 @@
+{% comment %}
+  Renders one Purelane product card.
+  Accepts:
+  - card_product: {Product}
+  - card_badge: {String} optional override badge text (e.g. "Best seller"). Falls back to
+    the automatic sold-out / on-sale badge when blank.
+  Edge cases handled: no image (placeholder illustration, never a broken/empty box),
+  sold out (badge + disabled CTA, no price-strike-through confusion), long titles
+  (clamped to 2 lines with the full title still readable via the link's accessible name).
+{% endcomment %}
+
+{%- liquid
+  assign card_product = card_product
+  assign on_sale = false
+  if card_product.compare_at_price > card_product.price and card_product.available
+    assign on_sale = true
+  endif
+  assign discount_pct = 0
+  if on_sale
+    assign discount_pct = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round
+  endif
+-%}
+<article class="pl-card pl-glass pl-rv{% if card_product.available == false %} pl-card--sold-out{% endif %}">
+  <a href="{{ card_product.url }}" class="pl-card-shot" aria-hidden="true" tabindex="-1">
+    {%- if card_product.featured_media -%}
+      <img
+        srcset="
+          {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+          {{ card_product.featured_media | image_url: width: 720 }} 720w
+        "
+        sizes="(min-width: 860px) 22vw, 45vw"
+        src="{{ card_product.featured_media | image_url: width: 533 }}"
+        alt=""
+        loading="lazy"
+        width="{{ card_product.featured_media.width }}"
+        height="{{ card_product.featured_media.height }}"
+      >
+    {%- else -%}
+      <span class="pl-card-noimg">{{ 'product-1' | placeholder_svg_tag: 'pl-card-placeholder' }}</span>
+    {%- endif -%}
+    {%- if card_product.available == false -%}
+      <span class="pl-pill pl-pill--soldout">{{ 'products.product.sold_out' | t }}</span>
+    {%- elsif card_badge != blank -%}
+      <span class="pl-pill">{{ card_badge }}</span>
+    {%- elsif on_sale -%}
+      <span class="pl-pill">{{ 'products.product.on_sale' | t }}</span>
+    {%- endif -%}
+  </a>
+  <h3 class="pl-card-title">
+    <a href="{{ card_product.url }}">{{ card_product.title | escape }}</a>
+  </h3>
+  {%- if card_product.metafields.reviews.rating.value != blank -%}
+    <div class="pl-rate">
+      <b>&#9733; {{ card_product.metafields.reviews.rating.value.rating }}</b>
+      &middot; {{ card_product.metafields.reviews.rating_count.value | default: 0 }} reviews
+    </div>
+  {%- endif -%}
+  <div class="pl-pr">
+    {%- if card_product.available == false -%}
+      <strong>{{ card_product.price | money }}</strong>
+    {%- elsif on_sale -%}
+      <strong>{{ card_product.price | money }}</strong>
+      <s>{{ card_product.compare_at_price | money }}</s>
+      <em>{{ discount_pct }}% off</em>
+    {%- else -%}
+      <strong>{{ card_product.price | money }}</strong>
+    {%- endif -%}
+  </div>
+  {%- if card_product.available == false -%}
+    <button class="pl-btn pl-btn-ghost pl-btn-sm" type="button" disabled>{{ 'products.product.sold_out' | t }}</button>
+  {%- else -%}
+    {%- form 'product', card_product -%}
+      <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+      <button type="submit" name="add" class="pl-btn pl-btn-ghost pl-btn-sm">{{ 'products.product.add_to_cart' | t }}</button>
+    {%- endform -%}
+  {%- endif -%}
+</article>

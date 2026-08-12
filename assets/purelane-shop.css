@@ -1,0 +1,33 @@
+/* ---------- Purelane shop / product grid ---------- */
+.pl-shop{background:linear-gradient(178deg,#f0fbf2 0%,#d9f2df 28%,#bde6c8 60%,#a2d9b6 100%)}
+.pl-shelf{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){.pl-shelf{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:860px){.pl-shelf{grid-template-columns:repeat(4,1fr)}}
+
+.pl-card{padding:16px;display:flex;flex-direction:column;transition:.4s var(--pl-ease)}
+.pl-card:hover{transform:translateY(-5px)}
+.pl-card-shot{position:relative;height:150px;border-radius:14px;margin-bottom:14px;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(160deg,rgba(75,58,143,.08),rgba(75,58,143,.14));border:1px solid rgba(75,58,143,.10)}
+.pl-card-shot img{max-height:132px;width:auto;object-fit:contain}
+.pl-card-noimg{display:grid;place-items:center;width:100%;height:100%;opacity:.5}
+.pl-card-noimg svg,.pl-card-placeholder{height:90px;width:auto}
+.pl-pill{position:absolute;top:9px;left:9px;font-size:8.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;background:rgba(23,16,43,.68);border:1px solid rgba(184,112,28,.4);color:#f0c98a}
+.pl-pill--soldout{background:rgba(36,26,61,.82);border-color:rgba(236,230,247,.3);color:#f4f0fb}
+.pl-card-title{font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--pl-surface);line-height:1.2;margin:0 0 7px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pl-card-title a{display:block}
+.pl-rate{font-size:11.5px;color:var(--pl-paper-2);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.pl-rate b{color:var(--pl-accent);font-weight:700}
+.pl-pr{margin-top:auto;display:flex;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.pl-pr strong{font-family:'Outfit',sans-serif;font-size:18px;color:var(--pl-surface);font-weight:700}
+.pl-pr s{font-size:12px;color:var(--pl-paper-3)}
+.pl-pr em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--pl-accent)}
+.pl-card .pl-btn{width:100%;justify-content:center}
+.pl-card--sold-out{opacity:.72}
+.pl-card--sold-out .pl-card-shot img{filter:grayscale(.6)}
+
+@media(max-width:760px){
+  .pl-card-shot{height:126px}
+  .pl-card-shot img{max-height:108px}
+}
