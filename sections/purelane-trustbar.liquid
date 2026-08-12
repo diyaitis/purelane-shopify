@@ -1,0 +1,62 @@
+{{ 'purelane-shared.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-trustbar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign trust_blocks = section.blocks | where: 'type', 'trust'
+-%}
+
+<section class="pl-scope pl-sec pl-trustbar-sec" data-section-id="{{ section.id }}" data-section-type="purelane-trustbar">
+  <div class="pl-wrap">
+    {%- if trust_blocks.size > 0 -%}
+      <div class="pl-glass pl-trust pl-rv">
+        {%- for block in trust_blocks -%}
+          <div class="pl-trust-i" {{ block.shopify_attributes }}>
+            {% render 'purelane-icon', icon: block.settings.icon %}
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane: Trust bar",
+  "tag": "section",
+  "class": "pl-section",
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "package", "label": "Package" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "globe", "label": "Globe" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Plant derived formulas" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane: Trust bar",
+      "blocks": [
+        { "type": "trust", "settings": { "icon": "leaf", "text": "Plant derived formulas" } },
+        { "type": "trust", "settings": { "icon": "package", "text": "Recyclable packaging" } },
+        { "type": "trust", "settings": { "icon": "shield", "text": "Safe for kids & pets" } },
+        { "type": "trust", "settings": { "icon": "globe", "text": "Made in India" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
