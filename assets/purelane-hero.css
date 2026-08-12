@@ -1,0 +1,57 @@
+/* ---------- Purelane hero ---------- */
+.pl-hero{position:relative;padding:64px 0 var(--pl-sec-y);background:linear-gradient(178deg,#fbfffb 0%,#eafaec 24%,#d6f1dc 54%,#bfe8ca 100%)}
+.pl-hero-grid{max-width:var(--pl-maxw);margin:0 auto;padding:0 18px;width:100%;position:relative;display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+@media(min-width:900px){.pl-hero-grid{grid-template-columns:1.05fr 1fr;gap:20px}}
+.pl-hero-copy{max-width:600px;position:relative}
+.pl-hero h1{margin:0 0 20px}
+.pl-hero-cta{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}
+
+/* promise badges, desktop rail */
+.pl-badges{display:none;flex-direction:column;gap:2px;padding:12px 8px;border-radius:20px;position:relative}
+@media(min-width:900px){.pl-badges{display:flex;position:absolute;right:0;top:50%;transform:translateY(-50%);width:96px;z-index:4}}
+.pl-badge{text-align:center;padding:11px 4px}
+.pl-badge+.pl-badge{border-top:1px solid rgba(75,58,143,.14)}
+.pl-badge .pl-bi{width:38px;height:38px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(75,58,143,.08);border:1px solid rgba(75,58,143,.20);color:var(--pl-accent)}
+.pl-badge .pl-bi svg{width:19px;height:19px}
+.pl-badge span{display:block;font-size:8.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--pl-paper-2);line-height:1.34}
+
+/* mobile badge strip */
+.pl-badgestrip{display:flex;gap:8px;margin-top:24px}
+@media(min-width:901px){.pl-badgestrip{display:none}}
+.pl-badgestrip div{flex:1;text-align:center;padding:11px 6px;border-radius:14px;font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pl-paper-2);line-height:1.3}
+.pl-badgestrip svg{width:18px;height:18px;margin:0 auto 6px;color:var(--pl-accent)}
+
+/* product stage */
+.pl-hstage{position:relative;width:100%;height:clamp(300px,54svh,560px)}
+.pl-hslide{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
+  padding-right:0;opacity:0;pointer-events:none;transition:opacity .85s var(--pl-ease)}
+.pl-hslide.pl-on{opacity:1;pointer-events:auto;position:relative}
+.pl-hp{position:relative;flex:0 0 auto;height:100%;max-height:100%;width:auto;border-radius:18px;overflow:hidden;
+  opacity:0;transform:translateY(28px) scale(.94);
+  transition:opacity .8s var(--pl-ease),transform .8s var(--pl-ease);
+  filter:drop-shadow(0 22px 34px rgba(23,16,43,.22))}
+.pl-hslide.pl-on .pl-hp{opacity:1;transform:none}
+.pl-hp img{height:100%;width:auto;object-fit:contain;border-radius:18px}
+.pl-hslide[data-n="2"] .pl-hp,.pl-hslide[data-n="3"] .pl-hp{height:82%}
+
+.pl-ptag{position:absolute;left:0;bottom:2%;z-index:6;padding:11px 14px 12px;border-radius:16px;max-width:64%;
+  opacity:1}
+.pl-ptag .pl-lbl{display:block;font-size:9px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:var(--pl-accent)}
+.pl-ptag .pl-val{display:flex;align-items:baseline;gap:7px;margin-top:5px}
+.pl-ptag .pl-val strong{font-family:'Outfit',sans-serif;font-size:23px;font-weight:800;letter-spacing:-.02em;color:var(--pl-surface);line-height:1}
+.pl-ptag .pl-val s{font-size:12px;color:var(--pl-paper-3)}
+.pl-ptag .pl-cut{display:inline-block;margin-top:7px;font-size:8.4px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;background:rgba(184,112,28,.14);border:1px solid rgba(184,112,28,.32);color:var(--pl-accent)}
+
+.pl-hdots{display:flex;gap:7px;justify-content:center;align-items:center;margin-top:12px}
+.pl-hdots button{width:6px;height:6px;padding:0;border-radius:50%;background:rgba(75,58,143,.24);transition:.4s var(--pl-ease)}
+.pl-hdots button.pl-on{background:var(--pl-accent);width:20px;border-radius:999px}
+.pl-hdots button:hover{background:rgba(75,58,143,.44)}
+
+@media(max-width:900px){
+  .pl-hero{padding-top:40px}
+  .pl-hstage{height:clamp(260px,44svh,420px)}
+  .pl-ptag{padding:9px 12px 10px;border-radius:14px;max-width:68%}
+  .pl-ptag .pl-val strong{font-size:20px}
+}
