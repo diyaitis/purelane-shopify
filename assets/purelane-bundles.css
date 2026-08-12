@@ -1,0 +1,29 @@
+/* ---------- Purelane bundles ---------- */
+.pl-bundles{background:linear-gradient(178deg,#f0fbf2 0%,#d9f2df 28%,#bde6c8 60%,#a2d9b6 100%)}
+.pl-tiers{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:760px){.pl-tiers{grid-template-columns:repeat(3,1fr)}}
+.pl-tier{padding:24px 22px;transition:.4s var(--pl-ease)}
+.pl-tier:hover{transform:translateY(-5px)}
+.pl-tier.pl-tier--best{border-color:rgba(184,112,28,.4);box-shadow:0 22px 54px rgba(58,44,112,.14),0 0 0 1px rgba(184,112,28,.2),var(--pl-g-inset)}
+.pl-tier .pl-tag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border-radius:999px;margin-bottom:14px;
+  background:rgba(184,112,28,.14);border:1px solid rgba(184,112,28,.3);color:var(--pl-accent)}
+.pl-tierpix{display:flex;align-items:flex-end;justify-content:center;gap:2px;height:78px;margin:-4px 0 16px;
+  padding:8px 6px;border-radius:14px;background:linear-gradient(162deg,rgba(75,58,143,.06),rgba(75,58,143,.10));
+  border:1px solid rgba(75,58,143,.10)}
+.pl-tierpix img{height:62px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(23,16,43,.16))}
+.pl-tierpix.pl-tierpix--five img{height:54px}
+.pl-tier .pl-qty{font-family:'Outfit',sans-serif;font-weight:800;font-size:52px;line-height:.9;color:var(--pl-surface);letter-spacing:-.03em}
+.pl-tier .pl-qty small{font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--pl-paper-3);display:block;margin-top:6px}
+.pl-tier .pl-price{font-family:'Outfit',sans-serif;font-weight:700;font-size:27px;color:var(--pl-accent);margin:16px 0 4px}
+.pl-tier .pl-price s{font-size:14px;color:var(--pl-paper-3);font-weight:500;margin-left:8px}
+.pl-tier ul{list-style:none;margin:16px 0 20px;padding:0;display:grid;gap:8px}
+.pl-tier li{display:flex;gap:9px;font-size:13px;color:var(--pl-paper-2)}
+.pl-tier li svg{width:14px;height:14px;color:var(--pl-accent);flex:0 0 auto;margin-top:4px}
+.pl-tier .pl-btn{width:100%;justify-content:center}
+
+@media(max-width:760px){
+  .pl-tierpix{height:70px}
+  .pl-tierpix img{height:54px}
+  .pl-tierpix.pl-tierpix--five img{height:46px}
+  .pl-tier .pl-qty{font-size:44px}
+}
