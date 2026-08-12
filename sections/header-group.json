@@ -8,8 +8,8 @@
         "color_scheme": "scheme-1",
         "show_line_separator": true,
         "show_social": false,
-        "auto_rotate": false,
-        "change_slides_speed": 5,
+        "auto_rotate": true,
+        "change_slides_speed": 4,
         "enable_country_selector": false,
         "enable_language_selector": false
       },
@@ -17,15 +17,45 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Free shipping on every bundle across India",
             "text_alignment": "center",
             "color_scheme": "scheme-1",
             "link": ""
           }
+        },
+        "announcement-bar-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "100% plant-based and non-toxic",
+            "text_alignment": "center",
+            "color_scheme": "scheme-1",
+            "link": ""
+          }
+        },
+        "announcement-bar-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "Loved by 30,000+ happy homes",
+            "text_alignment": "center",
+            "color_scheme": "scheme-1",
+            "link": ""
+          }
+        },
+        "announcement-bar-3": {
+          "type": "announcement",
+          "settings": {
+            "text": "Buy 3 at flat ₹499",
+            "text_alignment": "center",
+            "color_scheme": "scheme-1",
+            "link": "#bundles"
+          }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement-bar-1",
+        "announcement-bar-2",
+        "announcement-bar-3"
       ]
     },
     "header": {
